@@ -2,9 +2,9 @@ export interface BookingInterface {
   id: number;
   number?: string;
   Guest: string;
-  Order_Date: string;
-  Check_in: string;
-  Check_out: string;
+  Order_Date: Date | string;
+  Check_in: Date | string;
+  Check_out: Date |string;
   roomId?: number;
   price: number;
   Special_Request: string;

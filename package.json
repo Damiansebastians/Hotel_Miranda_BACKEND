@@ -3,9 +3,19 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "node ./src/index.ts",
-    "dev": "nodemon src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/server.ts",
+    "dev": "nodemon src/server.ts",
+    "local": "ts-node-dev src/server.ts",
+    "debug": "ts-node src/server.ts -- --inspect",
+    "build": "rm -rf dist && tsc",
+    "deploy": "npm run build && serverless deploy --force",
+    "test": "npm run seed && sleep 1 && jest",
+    "test:verbose": "jest --verbose --detectOpenHandles --forceExit",
+    "test:coverage": "jest --coverage",
+    "seed": "ts-node scripts/run-seed.ts",
+    "lint": "rome check --apply-unsafe .",
+    "format": "rome format --write ."
+    
   },
   "dependencies": {
     "body-parser": "^1.20.2",

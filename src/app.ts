@@ -1,16 +1,10 @@
-// import { bookingsController } from "./controllers/booking";
-// import { loginController } from "./controllers/login";
+import express from "express";
+const v1RoomRouter = require("./v1/routes/rooms")
+const v1BookingRouter = require("./v1/routes/bookings")
+const bodyParser = require("body-parser");
 
-// import authMiddleware from "./middlewares/auth";
-// import express from "express";
+export const app = express();
 
-// export const app = express();
-
-// // middlewares
-// app.use(express.json());
-
-// // public routes
-// app.use("/login", loginController);
-
-// // private routes
-// app.use("/booking", authMiddleware, bookingsController);
+app.use(bodyParser.json());
+app.use("/api/v1/rooms", v1RoomRouter);
+app.use("/api/v1/bookings", v1BookingRouter);
