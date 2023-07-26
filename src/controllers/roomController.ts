@@ -6,9 +6,9 @@ import { createNewRoom, deleteOneRoom, getOneRoom, getRooms, updateOneRoom } fro
 const getAllRooms = async (req: Request, res: Response) => {
   try {
     const allRooms = await getRooms();
-      return res.json({status: 'OK', data: allRooms});
+    return res.json({ status: 'OK', data: allRooms });
   } catch (error) {
-      return res.status(500).json({ status: "Error", message: "Failed to get all rooms" });
+    return res.status(500).json({ status: "Error", message: "Failed to get all rooms" });
   }
 };
 
@@ -42,8 +42,7 @@ const updateRoom = async (req: Request, res: Response) => {
   const roomId = req.params.roomId;
   try {
     const room = await updateOneRoom(roomId);
-      return res.json({success: true});
-    return res.json({ status: 'OK', data: room });
+    return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to update room" });
   }
