@@ -1,4 +1,4 @@
-export interface BookingModel {
+export interface BookingInterface {
   id: number;
   number?: string;
   Guest: string;
