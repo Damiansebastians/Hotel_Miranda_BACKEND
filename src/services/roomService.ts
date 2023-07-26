@@ -1,28 +1,54 @@
-const Room = require("../models/roomModel")
+import { RoomInterface } from "../Interfaces/roomInterface";
+import fs from "fs";
 
-const getAllRooms = () => {
-  const allRooms = Room.getAllRooms();
-  return allRooms;
+const roomData = require("../data/roomData.json");
+
+const getRooms = async () => {
+  try {
+    const allRooms = await roomData
+    return allRooms;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const getOneRoom = () => {
-  return;
+const getOneRoom = async (roomId: string) => {
+  try {
+    const room = roomData.find((room: any) => room.id === roomId);
+    return room;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const createNewRoom = () => {
-  return;
+const createNewRoom = async (newRoom: RoomInterface) => {
+  try {
+    const createdRoom: RoomInterface = await createNewRoom(newRoom)
+    return createdRoom;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const updateOneRoom = () => {
-  return;
+const updateOneRoom = async (roomId: string) => {
+  try {
+
+  } catch (error) {
+    throw error;
+  }
 };
 
-const deleteOneRoom = () => {
-  return;
+const deleteOneRoom = async (roomId: string) => {
+  try {
+    const room = roomData.filter((room: any) => room.id !== roomId);
+    fs.writeFileSync("./data/roomData.json", JSON.stringify(room));
+  } catch (error) {
+    throw error;
+  }
 };
 
-module.exports = {
-  getAllRooms,
+export {
+  getRooms,
   getOneRoom,
   createNewRoom,
   updateOneRoom,

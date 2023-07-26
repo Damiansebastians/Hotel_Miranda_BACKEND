@@ -1,35 +1,63 @@
 import { Request, Response } from 'express';
-const roomService = require("../services/roomService");
+import { createNewRoom, deleteOneRoom, getOneRoom, getRooms, updateOneRoom } from '../services/roomService';
 
-const getAllRooms = (req: Request, res: Response) => {
-  const allRooms = roomService.getAllRooms();
-  res.send({status: "OK", data: allRooms});
+//--------------------------------------------------------------
+
+const getAllRooms = async (req: Request, res: Response) => {
+  try {
+    const allRooms = await getRooms();
+      return res.json({status: 'OK', data: allRooms});
+  } catch (error) {
+      return res.status(500).json({ status: "Error", message: "Failed to get all rooms" });
+  }
 };
 
-const getOneRoom = (req: Request, res: Response) => {
-  const oneRoom = roomService.getOneRoom();
-  res.send("Get an existing room");
+//--------------------------------------------------------------
+const getRoom = async (req: Request, res: Response) => {
+  const roomId = req.params.roomId;
+  try {
+    const room = await getOneRoom(roomId);
+    if (!room) {
+      return res.status(404).json({ status: "Error", message: "Room not found" });
+    }
+    return res.json({ status: 'OK', data: room });
+  } catch (error) {
+    return res.status(500).json({ status: "Error", message: "Failed to get room" });
+  }
 };
 
-const createNewRoom = (req: Request, res: Response) => {
-  const createRoom = roomService.createNewRoom();
-  res.send("Create a new room");
+//--------------------------------------------------------------
+const createRoom = async (req: Request, res: Response) => {
+  const newRoom = req.body;
+  try {
+    const createdRoom = await createNewRoom(newRoom);
+    return res.status(201).json({ status: "OK", data: createdRoom });
+  } catch (error) {
+    return res.status(500).json({ status: "Error", message: "Failed to create room" });
+  }
 };
 
-const updateOneRoom = (req: Request, res: Response) => {
-  const updateRoom = roomService.updateOneRoom();
-  res.send("Update an existing room");
+//--------------------------------------------------------------
+const updateRoom = async (req: Request, res: Response) => {
+  const roomId = req.params.roomId;
+  try {
+    const room = await updateOneRoom(roomId);
+      return res.json({success: true});
+    return res.json({ status: 'OK', data: room });
+  } catch (error) {
+    return res.status(500).json({ status: "Error", message: "Failed to update room" });
+  }
 };
 
-const deleteOneRoom = (req: Request, res: Response) => {
-  const removeRoom = roomService.removeOneRoom();
-  res.send("Delete an existing room");
+// --------------------------------------------------------------
+const deleteRoom = async (req: Request, res: Response) => {
+  const roomId = req.params.roomId;
+  try {
+    await deleteOneRoom(roomId);
+    return res.json({ status: 'OK', message: "Room deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ status: "Error", message: "Failed to delete room" });
+  }
 };
 
-module.exports = {
-  getAllRooms,
-  getOneRoom,
-  createNewRoom,
-  updateOneRoom,
-  deleteOneRoom,
-};
+export { getAllRooms, getRoom, createRoom, updateRoom, deleteRoom };

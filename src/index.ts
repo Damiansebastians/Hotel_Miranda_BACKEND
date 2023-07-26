@@ -1,9 +1,12 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 const v1RoomRouter = require("./v1/routes/room")
+const bodyParser = require("body-parser");
+require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
+app.use(bodyParser.json());
 app.use("/api/v1/rooms", v1RoomRouter);
 
 app.listen(PORT, () => { 
