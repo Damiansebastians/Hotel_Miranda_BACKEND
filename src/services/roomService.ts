@@ -14,7 +14,7 @@ const getRooms = async () => {
 
 const getOneRoom = async (roomId: string) => {
   try {
-    const room = roomData.find((room: any) => room.id === roomId);
+    const room = roomData.find((room: RoomInterface) => (room.id) === Number(roomId));
     return room;
   } catch (error) {
     throw error;
