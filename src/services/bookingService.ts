@@ -1,4 +1,4 @@
-import { BookingInterface } from "../Interfaces/bookingInterface";
+import { BookingModel } from "../models/bookingModel";
 import fs from "fs";
 
 const bookingData = require("../data/bookingData.json");
@@ -14,16 +14,16 @@ const getBookings = async () => {
 
 const getOneBooking = async (bookingId: string) => {
   try {
-    const book = bookingData.find((book: BookingInterface) => (book.id) === Number(bookingId));
+    const book = bookingData.find((book: BookingModel) => (book.id) === Number(bookingId));
     return book;
   } catch (error) {
     throw error;
   }
 };
 
-const createNewBooking = async (newBooking: BookingInterface) => {
+const createNewBooking = async (newBooking: BookingModel) => {
   try {
-    const createdBooking: BookingInterface = await createNewBooking(newBooking)
+    const createdBooking: BookingModel = await createNewBooking(newBooking)
     return createdBooking;
   } catch (error) {
     throw error;

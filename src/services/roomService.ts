@@ -1,4 +1,4 @@
-import { RoomInterface } from "../Interfaces/roomInterface";
+import { RoomModel } from "../models/roomModel";
 import fs from "fs";
 
 const roomData = require("../data/roomData.json");
@@ -16,7 +16,7 @@ const getRooms = async () => {
 //---------------------------------------------------
 const getOneRoom = async (roomId: string) => {
   try {
-    const room = roomData.find((room: RoomInterface) => (room.id) === Number(roomId));
+    const room = roomData.find((room: RoomModel) => (room.id) === Number(roomId));
     return room;
   } catch (error) {
     throw error;
@@ -24,9 +24,9 @@ const getOneRoom = async (roomId: string) => {
 };
 
 //---------------------------------------------------
-const createNewRoom = async (newRoom: RoomInterface) => {
+const createNewRoom = async (newRoom: RoomModel) => {
   try {
-    const createdRoom: RoomInterface = await createNewRoom(newRoom)
+    const createdRoom: RoomModel = await createNewRoom(newRoom)
     return createdRoom;
   } catch (error) {
     throw error;

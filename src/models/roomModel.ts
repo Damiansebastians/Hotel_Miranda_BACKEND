@@ -1,4 +1,4 @@
-export interface RoomInterface {
+export interface RoomModel {
   id?: number;
   img?: string;
   bed_Type?: string;
@@ -10,5 +10,3 @@ export interface RoomInterface {
   type?: string;
   number: number;
 };
-
-
