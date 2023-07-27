@@ -1,4 +1,4 @@
-export interface GuestModel {
+export interface ContactInterface {
   id: number;
   date: string;
   customer: string;

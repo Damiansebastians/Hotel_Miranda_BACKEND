@@ -3,6 +3,7 @@ import fs from "fs";
 
 const roomData = require("../data/roomData.json");
 
+//---------------------------------------------------
 const getRooms = async () => {
   try {
     const allRooms = await roomData
@@ -12,6 +13,7 @@ const getRooms = async () => {
   }
 };
 
+//---------------------------------------------------
 const getOneRoom = async (roomId: string) => {
   try {
     const room = roomData.find((room: RoomInterface) => (room.id) === Number(roomId));
@@ -21,6 +23,7 @@ const getOneRoom = async (roomId: string) => {
   }
 };
 
+//---------------------------------------------------
 const createNewRoom = async (newRoom: RoomInterface) => {
   try {
     const createdRoom: RoomInterface = await createNewRoom(newRoom)
@@ -30,6 +33,7 @@ const createNewRoom = async (newRoom: RoomInterface) => {
   }
 };
 
+//---------------------------------------------------
 const updateOneRoom = async (roomId: string) => {
   try {
 
@@ -38,6 +42,7 @@ const updateOneRoom = async (roomId: string) => {
   }
 };
 
+//---------------------------------------------------
 const deleteOneRoom = async (roomId: string) => {
   try {
     const room = roomData.filter((room: any) => room.id !== roomId);

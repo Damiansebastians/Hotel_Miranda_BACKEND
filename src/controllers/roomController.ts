@@ -1,19 +1,21 @@
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { createNewRoom, deleteOneRoom, getOneRoom, getRooms, updateOneRoom } from '../services/roomService';
+
+const roomRouter = Router();
 
 //--------------------------------------------------------------
 
-const getAllRooms = async (req: Request, res: Response) => {
+roomRouter.get('/', async (req: Request, res: Response) => {
   try {
     const allRooms = await getRooms();
     return res.json({ data: allRooms });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to get all rooms" });
   }
-};
+});
 
 //--------------------------------------------------------------
-const getRoom = async (req: Request, res: Response) => {
+roomRouter.get('/:roomId', async (req: Request, res: Response) => {
   const roomId = req.params.roomId;
   try {
     const room = await getOneRoom(roomId);
@@ -24,10 +26,10 @@ const getRoom = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to get room" });
   }
-};
+});
 
 //--------------------------------------------------------------
-const createRoom = async (req: Request, res: Response) => {
+roomRouter.post('/', async (req: Request, res: Response) => {
   const newRoom = req.body;
   try {
     const createdRoom = await createNewRoom(newRoom);
@@ -35,10 +37,10 @@ const createRoom = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to create room" });
   }
-};
+});
 
 //--------------------------------------------------------------
-const updateRoom = async (req: Request, res: Response) => {
+roomRouter.patch('/:roomId', async (req: Request, res: Response) => {
   const roomId = req.params.roomId;
   try {
     const room = await updateOneRoom(roomId);
@@ -46,10 +48,10 @@ const updateRoom = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to update room" });
   }
-};
+});
 
 // --------------------------------------------------------------
-const deleteRoom = async (req: Request, res: Response) => {
+roomRouter.delete('/:roomId', async (req: Request, res: Response) => {
   const roomId = req.params.roomId;
   try {
     await deleteOneRoom(roomId);
@@ -57,6 +59,6 @@ const deleteRoom = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to delete room" });
   }
-};
+});
 
-export { getAllRooms, getRoom, createRoom, updateRoom, deleteRoom };
+export default roomRouter;
