@@ -10,7 +10,7 @@ provider:
   name: aws
   region: eu-west-3
   environment:
-    SECRET: ${file(.env.json):SECRET}
+    SECRET: ${file(.env):SECRET}
   runtime: nodejs18.x
 functions:
   app:

@@ -1,5 +1,4 @@
-.serverless
+
 /node_modules
 /dist
 .env
-.env.json
