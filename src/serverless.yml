@@ -8,7 +8,7 @@ package:
     - "dist/**"
 provider:
   name: aws
-  region: eu-west-1
+  region: eu-west-3
   environment:
     SECRET: ${file(.env.json):SECRET}
   runtime: nodejs18.x

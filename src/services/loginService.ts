@@ -17,8 +17,7 @@ const loginService = async (req: Request, res: Response) => {
   } else {
     console.log(process.env.SECRET_KEY);
     const token = jwt.sign({ ...user, id: uuidv4() }, process.env.SECRET_KEY as string);
-    console.log(token);
-
+  
     return { auth: true, token };
   }
 };
