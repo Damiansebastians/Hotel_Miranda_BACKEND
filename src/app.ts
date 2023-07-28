@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // Public
 app.use('/api/login', loginRouter);
-app.use('/api', homeController);
+app.use('/api/', homeController);
 
 // Private
 app.use("/api/rooms", loginAuth, roomRouter);
