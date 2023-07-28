@@ -7,7 +7,7 @@ const homeController = (req: Request, res: Response) => {
             private: {
                 get: [
                     "/api/bookings",
-                    "/api/messages",
+                    "/api/contact",
                     "/api/rooms",
                     "/api/users"
                 ]
