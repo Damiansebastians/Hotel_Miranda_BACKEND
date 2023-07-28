@@ -46,7 +46,8 @@ const updateOneRoom = async (roomId: string) => {
 const deleteOneRoom = async (roomId: string) => {
   try {
     const room = roomData.filter((room: any) => room.id !== roomId);
-    fs.writeFileSync("./data/roomData.json", JSON.stringify(room));
+    fs.writeFileSync("./data/roomData.json", JSON.stringify(room))
+      encoding: 'utf-8'
   } catch (error) {
     throw error;
   }

@@ -8,11 +8,11 @@ const loginController = async (req: express.Request , res: express.Response) => 
     const response = await loginService(req, res);
     res.status(200).json(response);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: true, message: "Incorrect credentials" });
   }
 };
 
-loginRoutes.post("/", loginController)
+loginRoutes.post("api/", loginController)
 
 
 
