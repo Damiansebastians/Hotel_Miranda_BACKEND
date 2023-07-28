@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { createNewBooking, deleteOneBooking, getBookings, getOneBooking, updateOneBooking } from '../services/bookingService';
+import { deleteOneBooking, getBookings, getOneBooking, updateOneBooking } from '../services/bookingService';
 
 const bookingRouter = Router();
 
@@ -31,8 +31,8 @@ bookingRouter.get('/:bookingId', async (req: Request, res: Response) => {
 bookingRouter.post('/', async (req: Request, res: Response) => {
   const newBooking = req.body;
   try {
-    const createdBooking = await createNewBooking(newBooking);
-    return res.status(201).json({ data: createdBooking });
+    // const createdBooking = await createNewBooking(newBooking);
+    // return res.status(201).json({ data: createdBooking });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to create booking" });
   }

@@ -21,10 +21,9 @@ const getOneBooking = async (bookingId: string) => {
   }
 };
 
-const createNewBooking = async (newBooking: BookingModel) => {
+const addNewBooking = async (newBooking: BookingModel) => {
   try {
-    const createdBooking: BookingModel = await createNewBooking(newBooking)
-    return createdBooking;
+    
   } catch (error) {
     throw error;
   }
@@ -50,7 +49,6 @@ const deleteOneBooking = async (bookingId: string) => {
 export {
   getBookings,
   getOneBooking,
-  createNewBooking,
   updateOneBooking,
   deleteOneBooking,
 };

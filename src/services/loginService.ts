@@ -15,7 +15,6 @@ const loginService = async (req: Request, res: Response) => {
     throw new Error("Incorrect credentials");
 
   } else {
-    console.log(process.env.SECRET_KEY);
     const token = jwt.sign({ ...user, id: uuidv4() }, process.env.SECRET_KEY as string);
   
     return { auth: true, token };
