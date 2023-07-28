@@ -7,7 +7,7 @@
     "dev": "nodemon src/server.ts",
     "local": "ts-node-dev src/server.ts",
     "debug": "ts-node src/server.ts -- --inspect",
-    "build": "rm -rf dist && tsc",
+    "build": "rimraf dist && tsc",
     "deploy": "npm run build && serverless deploy --force",
     "test": "npm run seed && sleep 1 && jest",
     "test:verbose": "jest --verbose --detectOpenHandles --forceExit",
