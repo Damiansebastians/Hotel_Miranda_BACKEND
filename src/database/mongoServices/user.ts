@@ -1,7 +1,6 @@
 import { UserModel } from "../../models/userModel";
 import { userInterface } from "../mongoDB/userInterface";
 
-
 export const getAllUsers = async () => {
   try {
     const users = await userInterface.find();

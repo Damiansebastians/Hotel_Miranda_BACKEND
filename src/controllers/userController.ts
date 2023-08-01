@@ -2,10 +2,11 @@ import { Request, Response, Router } from 'express';
 import {
   createNewUser,
   deleteOneUser,
+  getAllUsers,
   getOneUser,
-  getUsers,
   updateOneUser,
-} from '../services/userService';
+} from '../database/mongoServices/user';
+
 
 const userRouter = Router();
 
@@ -13,7 +14,7 @@ const userRouter = Router();
 
 userRouter.get('/', async (req: Request, res: Response) => {
   try {
-    const allUsers = await getUsers();
+    const allUsers = await getAllUsers();
     return res.json({ data: allUsers });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to get all users" });
@@ -49,7 +50,7 @@ userRouter.post('/', async (req: Request, res: Response) => {
 userRouter.patch('/:userId', async (req: Request, res: Response) => {
   const userId = req.params.userId;
   try {
-    const user = await updateOneUser(userId);
+    // await updateOneUser(userId, );
     return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to update user" });

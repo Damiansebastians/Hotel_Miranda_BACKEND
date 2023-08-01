@@ -9,7 +9,6 @@ const userSchema = new Schema<UserModel>({
   },
   img: {
     type: String,
-    require: true
   },
   name: {
     type: String,

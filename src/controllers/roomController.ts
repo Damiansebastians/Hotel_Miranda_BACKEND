@@ -1,13 +1,13 @@
 import { Request, Response, Router } from 'express';
-import { createNewRoom, deleteOneRoom, getOneRoom, getRooms, updateOneRoom } from '../services/roomService';
+import { createNewRoom, deleteOneRoom, getAllRooms, getOneRoom, updateOneRoom } from '../database/mongoServices/room';
 
 const roomRouter = Router();
 
 //--------------------------------------------------------------
 
-roomRouter.get('/', async (req: Request, res: Response) => {
+roomRouter.get('/', async (_req: Request, res: Response) => {
   try {
-    const allRooms = await getRooms();
+    const allRooms = await getAllRooms();
     return res.json({ data: allRooms });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to get all rooms" });
@@ -43,7 +43,7 @@ roomRouter.post('/', async (req: Request, res: Response) => {
 roomRouter.patch('/:roomId', async (req: Request, res: Response) => {
   const roomId = req.params.roomId;
   try {
-    const room = await updateOneRoom(roomId);
+    // const room = await updateOneRoom(roomId);
     return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to update room" });
