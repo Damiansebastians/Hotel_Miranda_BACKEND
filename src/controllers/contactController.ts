@@ -1,12 +1,12 @@
 import { Request, Response, Router } from 'express';
-import { createNewContact, deleteOneContact, getOneContact, getContacts, updateOneContact } from '../services/contactService';
+import { createNewContact, deleteOneContact, getAllContacts, getOneContact, updateOneContact } from '../database/mongoServices/contact';
 
 const contactRouter = Router();
 
 //--------------------------------------------------------------
-contactRouter.get('/', async (req: Request, res: Response) => {
+contactRouter.get('/', async (_req: Request, res: Response) => {
   try {
-    const allContacts = await getContacts();
+    const allContacts = await getAllContacts();
     return res.json({ data: allContacts });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to get all contacts" });
@@ -42,7 +42,7 @@ contactRouter.post('/', async (req: Request, res: Response) => {
 contactRouter.patch('/:contactId', async (req: Request, res: Response) => {
   const contactId = req.params.contactId;
   try {
-    const contact = await updateOneContact(contactId);
+    // const contact = await updateOneContact(contactId);
     return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to update contact" });

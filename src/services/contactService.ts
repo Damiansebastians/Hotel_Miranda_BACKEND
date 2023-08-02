@@ -1,3 +1,4 @@
+import { createNewContact, updateOneContact } from "../database/mongoServices/contact";
 import { ContactModel } from "../models/contactModel";
 import fs from "fs";
 
@@ -24,7 +25,7 @@ const getOneContact = async (contactId: string) => {
 };
 
 //----------------------------------------------------------
-const createNewContact = async (newContact: ContactModel) => {
+const createContact = async (newContact: ContactModel) => {
   try {
     const createdContact: ContactModel = await createNewContact(newContact);
     return createdContact;
@@ -34,9 +35,10 @@ const createNewContact = async (newContact: ContactModel) => {
 };
 
 //----------------------------------------------------------
-const updateOneContact = async (contactId: string) => {
+const updateContact = async (contactId: string, changes: Omit<Partial<ContactModel>, "contact_id">) => {
   try {
-    
+    const updatedContact = await updateOneContact(contactId, changes);
+    return updatedContact;
   } catch (error) {
     throw error;
   }
@@ -55,7 +57,7 @@ const deleteOneContact = async (contactId: string) => {
 export {
   getContacts,
   getOneContact,
-  createNewContact,
-  updateOneContact,
+  createContact,
+  updateContact,
   deleteOneContact,
 };

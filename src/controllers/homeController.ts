@@ -3,7 +3,7 @@ import { getHome } from '../services/homeService';
 
 export const homeController = Router();
 
-homeController.get('', (req, res) => {
+homeController.get('', (_req, res) => {
   res.status(200).json(getHome());
 
 

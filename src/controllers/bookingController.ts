@@ -1,12 +1,12 @@
 import { Request, Response, Router } from 'express';
-import { deleteOneBooking, getBookings, getOneBooking, updateOneBooking } from '../services/bookingService';
+import { createNewBooking, deleteOneBooking, getAllBookings, getOneBooking, updateOneBooking } from '../database/mongoServices/booking';
 
 const bookingRouter = Router();
 
 //--------------------------------------------------------------
-bookingRouter.get('/', async (req: Request, res: Response) => {
+bookingRouter.get('/', async (_req: Request, res: Response) => {
   try {
-    const allBookings = await getBookings();
+    const allBookings = await getAllBookings();
     return res.json({ data: allBookings });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to get all bookings" });
@@ -31,8 +31,8 @@ bookingRouter.get('/:bookingId', async (req: Request, res: Response) => {
 bookingRouter.post('/', async (req: Request, res: Response) => {
   const newBooking = req.body;
   try {
-    // const createdBooking = await createNewBooking(newBooking);
-    // return res.status(201).json({ data: createdBooking });
+    const createdBooking = await createNewBooking(newBooking);
+    return res.status(201).json({ data: createdBooking });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to create booking" });
   }
@@ -42,7 +42,7 @@ bookingRouter.post('/', async (req: Request, res: Response) => {
 bookingRouter.patch('/:bookingId', async (req: Request, res: Response) => {
   const bookingId = req.params.bookingId;
   try {
-    const book = await updateOneBooking(bookingId);
+    // const book = await updateBooking(bookingId);
     return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to update booking" });

@@ -14,5 +14,5 @@ export const connect = async () => {
 
 export const disconnect = async () => {
   await mongoose.disconnect();
-  console.log("succesfull disconnection");
+  console.log("Succesfull disconnection");
 }

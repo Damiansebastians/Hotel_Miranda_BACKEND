@@ -12,7 +12,7 @@ const userRouter = Router();
 
 //--------------------------------------------------------------
 
-userRouter.get('/', async (req: Request, res: Response) => {
+userRouter.get('/', async (_req: Request, res: Response) => {
   try {
     const allUsers = await getAllUsers();
     return res.json({ data: allUsers });
