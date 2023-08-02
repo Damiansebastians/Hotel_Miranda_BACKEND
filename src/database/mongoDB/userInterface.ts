@@ -14,9 +14,7 @@ const userSchema = new Schema<UserModel>({
     type: String,
     require: true
   },
-  number: Number,
   Job_Desk: String,
-  Schedule: String,
   Contact: String,
   Status: Boolean
 })
