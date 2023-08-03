@@ -16,7 +16,7 @@ const userSchema = new Schema<UserModel>({
   },
   Job_Desk: String,
   Contact: String,
-  Status: Boolean
+  Status: String
 })
 
 export const userInterface = mongoose.model('Users', userSchema)

@@ -1,34 +1,33 @@
 import { faker } from '@faker-js/faker';
-import { UserModel } from '../models/userModel';
-import { ContactModel } from '../models/contactModel';
-import { RoomModel } from '../models/roomModel';
-import { BookingModel } from '../models/bookingModel';
 import { userInterface } from '../database/mongoDB/userInterface';
 import { contactInterface } from '../database/mongoDB/contactInterface';
 import { roomInterface } from '../database/mongoDB/roomInterface';
 import { bookingInterface } from '../database/mongoDB/bookingInterface';
 
 //------------------------------------------------------
-export const createRandomUser = (numberUsers: number) => {
+export const createRandomUser = async (numberUsers: number) => {
   for (let i = 0; i < numberUsers; i++) {
+    const rand = Math.floor(Math.random() * 2);
+    console.log(rand);
 
-    const user: UserModel = {
+    const user = await new userInterface({
       id: faker.number.int({ min: 50, max: 100 }),
       img: faker.image.avatar(),
-      name: faker.person.firstName(),
+      name: faker.person.fullName(),
       Job_Desk: faker.person.jobTitle(),
-      Contact: Number(faker.phone.number()),
-      Status: faker.helpers.arrayElement(["ACTIVE", "INACTIVE"]),
-    };
-    userInterface.create(user);
+      Contact: faker.phone.number('+34 9##-##-##-##'),
+      Status: rand % 2 === 0 ? "ACTIVE" : "INACTIVE",
+    })
+    // .save();
+    console.log(user);
   }
 };
 
 //---------------------------------------------------
-export const createRandomContact = (numberContacts: number) => {
+export const createRandomContact = async (numberContacts: number) => {
   for (let i = 0; i < numberContacts; i++) {
 
-    let contact: ContactModel = {
+    const contact = await new contactInterface({
       id: faker.number.int({ min: 50, max: 100 }),
       date: String(faker.date.between({
         from: '2023-01-06T00:00:00.000Z',
@@ -37,19 +36,19 @@ export const createRandomContact = (numberContacts: number) => {
       customer: faker.person.fullName(),
       comment: faker.lorem.paragraph(),
       action: "Archive"
-    }
-    contactInterface.create(contact);
+    })
+    // .save()
+    // console.log(contact);
   }
 };
 
 //---------------------------------------------------
+let room: any;
 
-let room: RoomModel
-
-export const createRandomRoom = (numberRooms: number) => {
+export const createRandomRoom = async (numberRooms: number) => {
   for (let i = 0; i < numberRooms; i++) {
 
-    room = {
+    room = new roomInterface({
       id: faker.number.int({ min: 50, max: 100 }),
       img: faker.image.urlPicsumPhotos(),
       bed_Type: faker.helpers.arrayElement([
@@ -71,17 +70,18 @@ export const createRandomRoom = (numberRooms: number) => {
       price: faker.number.int({ min: 50, max: 500 }),
       offer: faker.number.int({ min: 0, max: 99 }),
       status: faker.helpers.arrayElement(["ACTIVE", "INACTIVE"]),
-    }
-    roomInterface.create(room);
+    })
+    // .save()
+    // console.log(room);
   }
 };
 
 //--------------------------------------------------
 
-export const createRandomBooking = (numberBookings: number) => {
+export const createRandomBooking = async (numberBookings: number) => {
   for (let i = 0; i < numberBookings; i++) {
 
-    const booking: BookingModel = {
+    const booking = await new bookingInterface({
       id: faker.number.int({
         min: 50,
         max: 100
@@ -123,7 +123,8 @@ export const createRandomBooking = (numberBookings: number) => {
         'Canceled',
         'Refund'
       ])
-    }
-    return bookingInterface.create(booking);
+    })
+    // .save()
+    // console.log(booking);
   }
 };

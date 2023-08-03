@@ -1,4 +1,4 @@
-import { connect, disconnect } from "./database/connectMongo";
+import { connect, disconnect } from "./database/connectMongoLocal";
 import {
   createRandomBooking,
   createRandomContact,
@@ -13,8 +13,11 @@ async function seedDB(): Promise<void> {
     await connection();
     await Promise.all([
       createRandomUser(10),
+      console.log("datos creados user"),
       createRandomContact(10),
+      console.log("datos creados contact"),
       createRandomRoom(10),
+      console.log("datos creados Room")
     ]);
     await createRandomBooking(10);
     await disconnect();

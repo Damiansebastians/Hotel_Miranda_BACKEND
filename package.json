@@ -12,7 +12,7 @@
     "test": "npm run seed && sleep 1 && jest",
     "test:verbose": "jest --verbose --detectOpenHandles --forceExit",
     "test:coverage": "jest --coverage",
-    "seed": "ts-node scripts/run-seed.ts",
+    "datos": "ts-node ./src/seed.ts",
     "lint": "rome check --apply-unsafe .",
     "format": "rome format --write ."
   },
