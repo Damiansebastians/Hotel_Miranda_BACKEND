@@ -8,11 +8,11 @@ const roomsIds: string[] = [];
 
 //------------------------------------------------------
 export const createRandomUser = async (numberUsers: number) => {
+  await userInterface.deleteMany({})
   for (let i = 0; i < numberUsers; i++) {
-    
+
     const rand = Math.floor(Math.random() * 2);
     const user = await new userInterface({
-      id: faker.number.int({ min: 50, max: 100 }),
       img: faker.image.avatar(),
       name: faker.person.fullName(),
       Job_Desk: faker.person.jobTitle(),
@@ -26,10 +26,10 @@ export const createRandomUser = async (numberUsers: number) => {
 
 //---------------------------------------------------
 export const createRandomContact = async (numberContacts: number) => {
-  for (let i = 0; i < numberContacts; i++) {
+  await contactInterface.deleteMany({})
 
+  for (let i = 0; i < numberContacts; i++) {
     const contact = await new contactInterface({
-      id: faker.number.int({ min: 50, max: 100 }),
       date: String(faker.date.between({
         from: '2023-01-06T00:00:00.000Z',
         to: '2023-01-12T00:00:00.000Z'
@@ -46,10 +46,10 @@ export const createRandomContact = async (numberContacts: number) => {
 //---------------------------------------------------
 
 export const createRandomRoom = async (numberRooms: number) => {
+  await roomInterface.deleteMany({})
   for (let i = 0; i < numberRooms; i++) {
 
     const room = await new roomInterface({
-      id: faker.number.int({ min: 50, max: 100 }),
       img: faker.image.urlPicsumPhotos(),
       bed_Type: faker.helpers.arrayElement([
         "Double Bed",
@@ -72,7 +72,7 @@ export const createRandomRoom = async (numberRooms: number) => {
       status: faker.helpers.arrayElement(["ACTIVE", "INACTIVE"]),
     })
       .save()
-    roomsIds.push(room.id);
+    roomsIds.push(room._id.toString());
     console.log(room);
   }
 };
@@ -80,13 +80,10 @@ export const createRandomRoom = async (numberRooms: number) => {
 //--------------------------------------------------
 
 export const createRandomBooking = async (numberBookings: number) => {
+  await bookingInterface.deleteMany({})
   for (let i = 0; i < numberBookings; i++) {
 
     const booking = await new bookingInterface({
-      id: faker.number.int({
-        min: 50,
-        max: 100
-      }),
       img: faker.image.urlPicsumPhotos(),
       Guest: faker.person.fullName(),
       Order_Date: String(faker.date.between({

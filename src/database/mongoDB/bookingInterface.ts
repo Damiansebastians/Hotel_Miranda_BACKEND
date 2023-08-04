@@ -3,11 +3,6 @@ const { Schema } = mongoose;
 import { BookingModel } from "../../models/bookingModel";
 
 const bookingSchema = new Schema<BookingModel>({
-    id: {
-        type: Number,
-        require: true,
-        unique: true
-    },
     img: String,
     Guest: String,
     Order_Date: Date,
