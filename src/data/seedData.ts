@@ -4,12 +4,13 @@ import { contactInterface } from '../database/mongoDB/contactInterface';
 import { roomInterface } from '../database/mongoDB/roomInterface';
 import { bookingInterface } from '../database/mongoDB/bookingInterface';
 
+const roomsIds: string[] = [];
+
 //------------------------------------------------------
 export const createRandomUser = async (numberUsers: number) => {
   for (let i = 0; i < numberUsers; i++) {
+    
     const rand = Math.floor(Math.random() * 2);
-    console.log(rand);
-
     const user = await new userInterface({
       id: faker.number.int({ min: 50, max: 100 }),
       img: faker.image.avatar(),
@@ -18,7 +19,7 @@ export const createRandomUser = async (numberUsers: number) => {
       Contact: faker.phone.number('+34 9##-##-##-##'),
       Status: rand % 2 === 0 ? "ACTIVE" : "INACTIVE",
     })
-    // .save();
+      .save();
     console.log(user);
   }
 };
@@ -37,18 +38,17 @@ export const createRandomContact = async (numberContacts: number) => {
       comment: faker.lorem.paragraph(),
       action: "Archive"
     })
-    // .save()
-    // console.log(contact);
+      .save()
+    console.log(contact);
   }
 };
 
 //---------------------------------------------------
-let room: any;
 
 export const createRandomRoom = async (numberRooms: number) => {
   for (let i = 0; i < numberRooms; i++) {
 
-    room = new roomInterface({
+    const room = await new roomInterface({
       id: faker.number.int({ min: 50, max: 100 }),
       img: faker.image.urlPicsumPhotos(),
       bed_Type: faker.helpers.arrayElement([
@@ -71,8 +71,9 @@ export const createRandomRoom = async (numberRooms: number) => {
       offer: faker.number.int({ min: 0, max: 99 }),
       status: faker.helpers.arrayElement(["ACTIVE", "INACTIVE"]),
     })
-    // .save()
-    // console.log(room);
+      .save()
+    roomsIds.push(room.id);
+    console.log(room);
   }
 };
 
@@ -100,7 +101,7 @@ export const createRandomBooking = async (numberBookings: number) => {
         from: '2023-01-01T00:00:00.000Z',
         to: '2023-01-12T00:00:00.000Z'
       })),
-      roomId: Number(room.id),
+      roomId: roomsIds[i],
       price: faker.number.int({
         min: 50,
         max: 500
@@ -124,7 +125,7 @@ export const createRandomBooking = async (numberBookings: number) => {
         'Refund'
       ])
     })
-    // .save()
-    // console.log(booking);
+      .save()
+    console.log(booking);
   }
 };

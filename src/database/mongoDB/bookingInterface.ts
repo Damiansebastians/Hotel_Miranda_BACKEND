@@ -5,7 +5,8 @@ import { BookingModel } from "../../models/bookingModel";
 const bookingSchema = new Schema<BookingModel>({
     id: {
         type: Number,
-        require: true
+        require: true,
+        unique: true
     },
     img: String,
     Guest: String,
@@ -17,9 +18,7 @@ const bookingSchema = new Schema<BookingModel>({
         ref: 'rooms'
     },
     price: Number,
-    amenities: [{
-        type: String
-    }],
+    amenities: String,
     Special_Request: String,
     description: String,
     Status: String

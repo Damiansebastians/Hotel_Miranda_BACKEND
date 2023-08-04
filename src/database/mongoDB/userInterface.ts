@@ -5,7 +5,8 @@ const { Schema, model } = mongoose;
 const userSchema = new Schema<UserModel>({
   id: {
     type: Number,
-    require: true
+    require: true,
+    unique: true
   },
   img: {
     type: String,
