@@ -13,13 +13,14 @@ async function seedDB(): Promise<void> {
     await connection();
     await Promise.all([
       createRandomUser(10),
-      console.log("datos creados user"),
+      console.log("datos creados users"),
       createRandomContact(10),
-      console.log("datos creados contact"),
+      console.log("datos creados contacts"),
       createRandomRoom(10),
-      console.log("datos creados Room")
+      console.log("datos creados rooms")
     ]);
     await createRandomBooking(10);
+    console.log("datos creados bookings")
     await disconnect();
   } catch (error) {
     console.error(error);
