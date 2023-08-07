@@ -1,3 +1,4 @@
+import { createNewBooking, updateOneBooking } from "../database/mongoServices/booking";
 import { BookingModel } from "../models/bookingModel";
 import fs from "fs";
 
@@ -21,17 +22,19 @@ const getOneBooking = async (bookingId: string) => {
   }
 };
 
-const addNewBooking = async (newBooking: BookingModel) => {
+const createBooking = async (newBooking: BookingModel) => {
   try {
-    
+    const createBooking = await createNewBooking(newBooking);
+    return createBooking;
   } catch (error) {
     throw error;
   }
 };
 
-const updateOneBooking = async (bookingId: string) => {
+const updateBooking = async (bookingId: string, changes: Omit<Partial<BookingModel>, "booking_id">) => {
   try {
-
+    const updatedBooking = await updateOneBooking(bookingId, changes);
+    return updatedBooking;
   } catch (error) {
     throw error;
   }
@@ -49,6 +52,7 @@ const deleteOneBooking = async (bookingId: string) => {
 export {
   getBookings,
   getOneBooking,
-  updateOneBooking,
+  createBooking,
+  updateBooking,
   deleteOneBooking,
 };

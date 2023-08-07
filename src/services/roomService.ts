@@ -1,3 +1,4 @@
+import { updateOneRoom } from "../database/mongoServices/room";
 import { RoomModel } from "../models/roomModel";
 import fs from "fs";
 
@@ -34,9 +35,10 @@ const createNewRoom = async (newRoom: RoomModel) => {
 };
 
 //---------------------------------------------------
-const updateOneRoom = async (roomId: string) => {
+const updateRoom = async (roomId: string, changes: Omit<Partial<RoomModel>, "room_id">) => {
   try {
-
+    const updatedRoom = await updateOneRoom(roomId, changes);
+    return updatedRoom;
   } catch (error) {
     throw error;
   }
@@ -47,7 +49,7 @@ const deleteOneRoom = async (roomId: string) => {
   try {
     const room = roomData.filter((room: any) => room.id !== roomId);
     fs.writeFileSync("./data/roomData.json", JSON.stringify(room))
-      encoding: 'utf-8'
+    encoding: 'utf-8'
   } catch (error) {
     throw error;
   }
@@ -57,6 +59,6 @@ export {
   getRooms,
   getOneRoom,
   createNewRoom,
-  updateOneRoom,
+  updateRoom,
   deleteOneRoom,
 };

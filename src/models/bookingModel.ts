@@ -1,6 +1,7 @@
 export interface BookingModel {
   id: number;
-  number?: string;
+  img:string
+  // number?: string;
   Guest: string;
   Order_Date: Date | string;
   Check_in: Date | string;
@@ -8,9 +9,8 @@ export interface BookingModel {
   roomId?: number;
   price: number;
   Special_Request: string;
-  amenities?: string[];
-  Room_type: string;
+  amenities?: string;
+  // Room_type: string;
   description: string;
   Status: string,
-  img:string
 };

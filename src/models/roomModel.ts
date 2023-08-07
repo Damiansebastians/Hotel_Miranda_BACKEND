@@ -2,11 +2,11 @@ export interface RoomModel {
   id?: number;
   img?: string;
   bed_Type?: string;
-  room_floor?: string;
+  // room_floor?: string;
   facilities?: string;
-  price: string;
+  price: number;
   offer?: number;
   status?: string;
-  type?: string;
-  number: number;
+  // type?: string;
+  // number: number;
 };

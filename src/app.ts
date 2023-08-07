@@ -6,15 +6,18 @@ import userRouter from "./controllers/userController";
 import { homeController } from "./controllers/homeController";
 import { loginRoutes } from "./controllers/loginController";
 import loginAuth from "./middleware/auth";
-const bodyParser = require("body-parser");
-
+import { connect } from "./database/connectMongo";
 
 export const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('API running on root path');
 });
+
+//MongoDB Connection
+const connection = async () => await connect();
+connection();
 
 // Public
 app.use('/login', loginRoutes);

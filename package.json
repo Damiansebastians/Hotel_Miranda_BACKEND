@@ -1,7 +1,7 @@
 {
   "name": "hotel_miranda_backend",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "app.ts",
   "scripts": {
     "start": "node dist/server.ts",
     "dev": "nodemon src/server.ts",
@@ -12,7 +12,7 @@
     "test": "npm run seed && sleep 1 && jest",
     "test:verbose": "jest --verbose --detectOpenHandles --forceExit",
     "test:coverage": "jest --coverage",
-    "seed": "ts-node scripts/run-seed.ts",
+    "seed": "ts-node ./src/seed.ts",
     "lint": "rome check --apply-unsafe .",
     "format": "rome format --write ."
   },
@@ -21,14 +21,19 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",
+    "mongodb": "^5.7.0",
+    "mongoose": "^7.4.1",
     "serverless-http": "^3.2.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@types/express": "^4.17.17",
+    "@types/faker": "^6.6.9",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.4.4",
     "@types/uuid": "^9.0.2",
+    "faker": "^6.6.6",
     "nodemon": "^3.0.1",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",

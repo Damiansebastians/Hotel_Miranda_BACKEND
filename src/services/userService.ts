@@ -1,3 +1,4 @@
+import { createNewUser, updateOneUser } from "../database/mongoServices/user";
 import { UserModel } from "../models/userModel";
 import fs from "fs";
 
@@ -24,7 +25,7 @@ const getOneUser = async (userId: string) => {
 };
 
 //---------------------------------------------------
-const createNewUser = async (newUser: UserModel) => {
+const createUser = async (newUser: UserModel) => {
   try {
     const createdUser: UserModel = await createNewUser(newUser);
     return createdUser;
@@ -34,9 +35,10 @@ const createNewUser = async (newUser: UserModel) => {
 };
 
 //---------------------------------------------------
-const updateOneUser = async (userId: string) => {
+const updateUser = async (userId: string, changes: Omit<Partial<UserModel>, "user_id">) => {
   try {
-    
+    const updatedUser = await updateOneUser(userId, changes);
+    return updatedUser;
   } catch (error) {
     throw error;
   }
@@ -55,7 +57,7 @@ const deleteOneUser = async (userId: string) => {
 export {
   getUsers,
   getOneUser,
-  createNewUser,
-  updateOneUser,
+  createUser,
+  updateUser,
   deleteOneUser,
 };
