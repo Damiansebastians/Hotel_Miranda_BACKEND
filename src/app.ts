@@ -7,9 +7,12 @@ import { homeController } from "./controllers/homeController";
 import { loginRoutes } from "./controllers/loginController";
 import loginAuth from "./middleware/auth";
 const bodyParser = require("body-parser");
+var cors = require('cors')
 
 
 export const app = express();
+app.use(cors());
+
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
