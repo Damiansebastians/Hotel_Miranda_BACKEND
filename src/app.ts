@@ -15,7 +15,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('API running on root path');
 });
 
