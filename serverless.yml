@@ -18,8 +18,8 @@ functions:
     events:
       - http: ANY /
       - http: ANY /{proxy+}
-        # cors: true
-      # .http:
-      #   path: {proxy}
-      #   method: ANY
-        # cors: true
+        cors: true
+      .http:
+        path: {proxy}
+       method: ANY
+      cors: true
