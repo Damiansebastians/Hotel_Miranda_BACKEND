@@ -17,4 +17,6 @@ functions:
     handler: dist/lambda.handler
     events:
       - http: ANY /
+        cors: true
       - http: ANY /{proxy+}
+        cors: true
