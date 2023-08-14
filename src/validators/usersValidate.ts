@@ -8,7 +8,8 @@ export const userSchema = joi.object<UserModel>({
   img: joi.string()
     .uri(),
   Job_Desk: joi.string(),
-  Contact: joi.string(),
+  Contact: joi.string()
+    .trim(),
   Status: joi.string()
     .valid(
       "ACTIVE",

@@ -27,7 +27,8 @@ export const roomSchema = joi.object<RoomModel>({
     .max(1000),
   offer: joi.number()
     .min(0)
-    .max(99),
+    .max(99)
+    .integer(),
   status: joi.string()
     .valid(
       "ACTIVE",
