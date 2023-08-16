@@ -6,13 +6,14 @@ import {
   getOneUser,
   updateOneUser,
 } from '../database/mongoServices/user';
+import { userSchema, userSchemaUpdate } from '../validators/usersValidate';
 
 
 const userRouter = Router();
 
 //--------------------------------------------------------------
 
-userRouter.get('/', async (_req: Request, res: Response) => {
+userRouter.get('/', async (req: Request, res: Response) => {
   try {
     const allUsers = await getAllUsers();
     return res.json({ data: allUsers });
@@ -25,6 +26,7 @@ userRouter.get('/', async (_req: Request, res: Response) => {
 userRouter.get('/:userId', async (req: Request, res: Response) => {
   const userId = req.params.userId;
   try {
+    userSchema.validate(req.body, { abortEarly: false });
     const user = await getOneUser(userId);
     if (!user) {
       return res.status(404).json({ status: "Error", message: "User not found" });
@@ -39,6 +41,7 @@ userRouter.get('/:userId', async (req: Request, res: Response) => {
 userRouter.post('/', async (req: Request, res: Response) => {
   const newUser = req.body;
   try {
+    userSchema.validate(req.body, { abortEarly: false });
     const createdUser = await createNewUser(newUser);
     return res.status(201).json({ data: createdUser });
   } catch (error) {
@@ -51,6 +54,7 @@ userRouter.patch('/:userId', async (req: Request, res: Response) => {
   const userId = req.params.userId;
   try {
     // await updateOneUser(userId, );
+    userSchemaUpdate.validate(req.body, { abortEarly: false });
     return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ status: "Error", message: "Failed to update user" });
