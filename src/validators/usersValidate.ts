@@ -2,7 +2,8 @@
 import joi from 'joi';
 import { UserModel } from '../models/userModel';
 
-export const userSchema = joi.object<UserModel>({
+//create
+export const userSchemaCreate = joi.object<UserModel>({
   name: joi.string().required(),
   img: joi.string().uri().required(),
   Job_Desk: joi.string().required(),

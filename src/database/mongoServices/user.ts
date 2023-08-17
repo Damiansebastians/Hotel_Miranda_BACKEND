@@ -30,11 +30,12 @@ export const createNewUser = async (newUser: UserModel): Promise<UserModel> => {
 
 export const updateOneUser = async (userId: string, changes: Omit<Partial<UserModel>, "id">) => {
   try {
-    await userInterface.findByIdAndUpdate({ id: userId }, changes)
+    await userInterface.findOneAndUpdate({ _id: userId }, changes);
   } catch (error) {
     throw { status: 500, message: error };
   }
 };
+
 
 export const deleteOneUser = async (userId: string): Promise<void> => {
   try {

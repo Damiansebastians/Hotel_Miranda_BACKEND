@@ -1,6 +1,7 @@
 import { ContactModel } from "../../models/contactModel";
 import { contactInterface } from "../mongoDB/contactInterface";
 
+//-------------------------------------------------
 export const getAllContacts = async () => {
   try {
     const contacts = await contactInterface.find();
@@ -10,6 +11,7 @@ export const getAllContacts = async () => {
   }
 };
 
+//-------------------------------------------------
 export const getOneContact = async (contactId: string) => {
   try {
     const contact = await contactInterface.find({ id: contactId })
@@ -19,6 +21,7 @@ export const getOneContact = async (contactId: string) => {
   }
 };
 
+//-------------------------------------------------
 export const createNewContact = async (newContact: ContactModel): Promise<ContactModel> => {
   try {
     await contactInterface.create(newContact)
@@ -28,6 +31,7 @@ export const createNewContact = async (newContact: ContactModel): Promise<Contac
   }
 };
 
+//-------------------------------------------------
 export const updateOneContact = async (contactId: string, changes: Omit<Partial<ContactModel>, "id">) => {
   try {
     await contactInterface.findOneAndUpdate({ id: contactId }, changes);
@@ -36,6 +40,7 @@ export const updateOneContact = async (contactId: string, changes: Omit<Partial<
   }
 };
 
+//-------------------------------------------------
 export const deleteOneContact = async (contactId: string): Promise<void> => {
   try {
     await contactInterface.findOneAndDelete({ id: contactId });

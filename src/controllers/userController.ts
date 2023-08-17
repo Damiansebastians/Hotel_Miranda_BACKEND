@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+// import bcrypt from 'bcrypt';
 import {
   createNewUser,
   deleteOneUser,
@@ -6,19 +7,19 @@ import {
   getOneUser,
   updateOneUser,
 } from '../database/mongoServices/user';
-import { userSchema, userSchemaUpdate } from '../validators/usersValidate';
+import { userSchemaCreate, userSchemaUpdate } from '../validators/usersValidate';
 
 
 const userRouter = Router();
 
 //--------------------------------------------------------------
 
-userRouter.get('/', async (req: Request, res: Response) => {
+userRouter.get('/', async (_req: Request, res: Response) => {
   try {
     const allUsers = await getAllUsers();
-    return res.json({ data: allUsers });
+    return res.send({ data: allUsers });
   } catch (error) {
-    return res.status(500).json({ status: "Error", message: "Failed to get all users" });
+    return res.status(500).send({ status: "Error", message: "Failed to get all users" });
   }
 });
 
@@ -26,38 +27,43 @@ userRouter.get('/', async (req: Request, res: Response) => {
 userRouter.get('/:userId', async (req: Request, res: Response) => {
   const userId = req.params.userId;
   try {
-    userSchema.validate(req.body, { abortEarly: false });
     const user = await getOneUser(userId);
     if (!user) {
-      return res.status(404).json({ status: "Error", message: "User not found" });
+      return res.status(404).send({ status: "Error", message: "User not found" });
     }
-    return res.json({ data: user });
+    return res.send({ data: user });
   } catch (error) {
-    return res.status(500).json({ status: "Error", message: "Failed to get user" });
+    return res.status(500).send({ status: "Error", message: "Failed to get user" });
   }
 });
 
 //--------------------------------------------------------------
+// const salt = bcrypt.genSalt(10);
+// const password = await bcrypt.hash(body.user_password,salt);
+//     console.log(password);
+
 userRouter.post('/', async (req: Request, res: Response) => {
   const newUser = req.body;
   try {
-    userSchema.validate(req.body, { abortEarly: false });
+    userSchemaCreate.validate(req.body, { abortEarly: false });
     const createdUser = await createNewUser(newUser);
-    return res.status(201).json({ data: createdUser });
+    return res.status(201).send({ data: createdUser });
   } catch (error) {
-    return res.status(500).json({ status: "Error", message: "Failed to create user" });
+    return res.status(500).send({ status: "Error", message: "Failed to create user" });
   }
 });
 
 //--------------------------------------------------------------
 userRouter.patch('/:userId', async (req: Request, res: Response) => {
   const userId = req.params.userId;
+  const changes = req.body;
+
   try {
-    // await updateOneUser(userId, );
     userSchemaUpdate.validate(req.body, { abortEarly: false });
-    return res.json({ success: true });
+    await updateOneUser(userId, changes);
+    return res.send({ success: true });
   } catch (error) {
-    return res.status(500).json({ status: "Error", message: "Failed to update user" });
+    return res.status(500).send({ status: "Error", message: "Failed to update user" });
   }
 });
 
@@ -66,9 +72,9 @@ userRouter.delete('/:userId', async (req: Request, res: Response) => {
   const userId = req.params.userId;
   try {
     await deleteOneUser(userId);
-    return res.json({ message: "User deleted successfully" });
+    return res.send({ message: "User deleted successfully" });
   } catch (error) {
-    return res.status(500).json({ status: "Error", message: "Failed to delete user" });
+    return res.status(500).send({ status: "Error", message: "Failed to delete user" });
   }
 });
 
