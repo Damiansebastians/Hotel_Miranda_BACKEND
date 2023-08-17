@@ -10,6 +10,7 @@ const userSchema = new Schema<UserModel>({
     type: String,
     require: true
   },
+  password: String,
   Job_Desk: String,
   Contact: String,
   Status: String
