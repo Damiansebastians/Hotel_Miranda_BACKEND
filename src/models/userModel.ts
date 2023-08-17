@@ -1,10 +1,9 @@
 export interface UserModel {
-  id: number;
-  img: string;
+  // id: number;
   name: string;
-  // number: number;
+  password: string;
+  img: string;
   Job_Desk: string;
-  // Schedule: string;
   Contact: number | string;
   Status: "ACTIVE" | "INACTIVE";
 };

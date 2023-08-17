@@ -5,6 +5,7 @@ import { UserModel } from '../models/userModel';
 //create
 export const userSchemaCreate = joi.object<UserModel>({
   name: joi.string().required(),
+  password: joi.string().required(),
   img: joi.string().uri().required(),
   Job_Desk: joi.string().required(),
   Contact: joi.string().trim().required(),
@@ -13,7 +14,8 @@ export const userSchemaCreate = joi.object<UserModel>({
 
 //update
 export const userSchemaUpdate = joi.object<UserModel>({
-  name: joi.string().required(),
+  name: joi.string(),
+  password: joi.string(),
   img: joi.string().uri(),
   Job_Desk: joi.string(),
   Contact: joi.string().trim(),

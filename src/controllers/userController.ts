@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-// import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import {
   createNewUser,
   deleteOneUser,
@@ -13,7 +13,6 @@ import { userSchemaCreate, userSchemaUpdate } from '../validators/usersValidate'
 const userRouter = Router();
 
 //--------------------------------------------------------------
-
 userRouter.get('/', async (_req: Request, res: Response) => {
   try {
     const allUsers = await getAllUsers();
@@ -38,15 +37,16 @@ userRouter.get('/:userId', async (req: Request, res: Response) => {
 });
 
 //--------------------------------------------------------------
-// const salt = bcrypt.genSalt(10);
-// const password = await bcrypt.hash(body.user_password,salt);
-//     console.log(password);
 
 userRouter.post('/', async (req: Request, res: Response) => {
   const newUser = req.body;
+
   try {
+    const pass = await bcrypt.genSalt(9);
+    const password = await bcrypt.hash(newUser.password, pass);
+
     userSchemaCreate.validate(req.body, { abortEarly: false });
-    const createdUser = await createNewUser(newUser);
+    const createdUser = await createNewUser({ ...newUser, password });
     return res.status(201).send({ data: createdUser });
   } catch (error) {
     return res.status(500).send({ status: "Error", message: "Failed to create user" });
