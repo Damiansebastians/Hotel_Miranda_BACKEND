@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
@@ -9,7 +8,7 @@ passport.use(
   "login",
   new LocalStrategy(
     {
-      usernameField: "email",
+      usernameField: "name",
       passwordField: "password",
     },
     async (name: string, password: string, done) => {
@@ -21,7 +20,7 @@ passport.use(
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-          return done(null, false, { message: "Contraseña incorrecta" });
+          return done(null, false, { message: "Invalid credentials!" });
         }
 
         return done(null, user);
