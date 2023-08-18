@@ -20,7 +20,7 @@ app.get('/', (_req, res) => {
 const connection = async () => await connect();
 connection();
 
-// Initialize passport
+//passport
 app.use(passport.initialize());
 
 // Public

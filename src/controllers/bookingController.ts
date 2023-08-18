@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { createNewBooking, deleteOneBooking, getAllBookings, getOneBooking, updateOneBooking } from '../database/mongoServices/booking';
 import { bookingSchemaCreate, bookingSchemaUpdate } from '../validators/bookingsValidate';
+import { idValidator } from '../validators/idValidate';
 
 const bookingRouter = Router();
 
@@ -18,6 +19,7 @@ bookingRouter.get('/', async (_req: Request, res: Response) => {
 bookingRouter.get('/:bookingId', async (req: Request, res: Response) => {
   const bookingId = req.params.bookingId;
   try {
+    await idValidator.validateAsync(bookingId);
     const book = await getOneBooking(bookingId);
     if (!book) {
       return res.status(404).send({ status: "Error", message: "Booking not found" });
@@ -46,6 +48,7 @@ bookingRouter.patch('/:bookingId', async (req: Request, res: Response) => {
   const changes = req.body;
 
   try {
+    await idValidator.validateAsync(bookingId);
     bookingSchemaUpdate.validate(req.body, { abortEarly: false })
     await updateOneBooking(bookingId, changes);
     return res.send({ success: true });
@@ -58,6 +61,7 @@ bookingRouter.patch('/:bookingId', async (req: Request, res: Response) => {
 bookingRouter.delete('/:bookingId', async (req: Request, res: Response) => {
   const bookingId = req.params.bookingId;
   try {
+    await idValidator.validateAsync(bookingId);
     await deleteOneBooking(bookingId);
     return res.send({ message: "Booking deleted successfully" });
   } catch (error) {
