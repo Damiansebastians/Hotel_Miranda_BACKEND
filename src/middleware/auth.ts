@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy as localStrategy } from "passport-local";
 import { Strategy as JWTstrategy } from "passport-jwt";

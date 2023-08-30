@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import {
   createNewUser,
   deleteOneUser,
