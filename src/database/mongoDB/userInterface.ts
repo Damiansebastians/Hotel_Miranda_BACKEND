@@ -3,6 +3,7 @@ import { UserModel } from "../../models/userModel";
 const { Schema, model } = mongoose;
 
 const userSchema = new Schema<UserModel>({
+  id: { type: String},
   img: {
     type: String,
   },
@@ -11,6 +12,7 @@ const userSchema = new Schema<UserModel>({
     require: true
   },
   password: String,
+  email: String,
   Job_Desk: String,
   Contact: String,
   Status: String

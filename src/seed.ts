@@ -1,4 +1,4 @@
-import { connect, disconnect } from "./database/connectMongoLocal";
+import { connect, disconnect } from "./database/connectMongo";
 import {
   createRandomBooking,
   createRandomContact,

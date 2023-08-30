@@ -1,6 +1,7 @@
 export interface UserModel {
-  // id: number;
+  id: string;
   name: string;
+  email: string;
   password: string;
   img: string;
   Job_Desk: string;

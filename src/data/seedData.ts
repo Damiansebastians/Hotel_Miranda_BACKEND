@@ -3,6 +3,7 @@ import { userInterface } from '../database/mongoDB/userInterface';
 import { contactInterface } from '../database/mongoDB/contactInterface';
 import { roomInterface } from '../database/mongoDB/roomInterface';
 import { bookingInterface } from '../database/mongoDB/bookingInterface';
+import { hashPassword } from '../middleware/auth';
 
 const roomsIds: string[] = [];
 
@@ -12,7 +13,11 @@ export const createRandomUser = async (numberUsers: number) => {
   for (let i = 0; i < numberUsers; i++) {
 
     const rand = Math.floor(Math.random() * 2);
+    const password = faker.internet.password();
+    
     const user = await new userInterface({
+      email: faker.internet.email(),
+      password:(await hashPassword(password)) as string,
       img: faker.image.avatar(),
       name: faker.person.fullName(),
       Job_Desk: faker.person.jobTitle(),

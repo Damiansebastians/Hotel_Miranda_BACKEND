@@ -4,7 +4,7 @@ import roomRouter from "./controllers/roomController";
 import contactRouter from "./controllers/contactController";
 import userRouter from "./controllers/userController";
 import { homeController } from "./controllers/homeController";
-import { loginRoutes } from "./controllers/loginController";
+import { authRouter } from "./controllers/loginController";
 import passport from "passport";
 import { connect } from "./database/connectMongo";
 import "./middleware/auth";
@@ -24,7 +24,7 @@ connection();
 app.use(passport.initialize());
 
 // Public
-app.use('/login', loginRoutes);
+app.use('/login', authRouter);
 app.use('/home', homeController);
 
 // Private routes
