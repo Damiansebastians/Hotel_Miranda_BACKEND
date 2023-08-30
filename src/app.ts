@@ -8,8 +8,12 @@ import { authRouter } from "./controllers/loginController";
 import passport from "passport";
 import { connect } from "./database/connectMongo";
 import "./middleware/auth";
+import cors from "cors";
+
 
 export const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (_req, res) => {
